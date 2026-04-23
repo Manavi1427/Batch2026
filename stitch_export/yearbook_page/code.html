@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,800;1,800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#510017",
+                    "surface-container-highest": "#dbdddd",
+                    "primary-fixed-dim": "#e9aec3",
+                    "on-secondary-fixed": "#014154",
+                    "tertiary-fixed-dim": "#e7c3ed",
+                    "on-primary-fixed": "#4b2334",
+                    "inverse-surface": "#0c0f0f",
+                    "surface-dim": "#d3d5d5",
+                    "on-primary-fixed-variant": "#6c3f51",
+                    "primary": "#7d4d5f",
+                    "on-tertiary-container": "#604567",
+                    "secondary-container": "#b2e4fb",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-dim": "#614668",
+                    "primary-dim": "#6f4253",
+                    "primary-fixed": "#f8bbd0",
+                    "background": "#f6f6f6",
+                    "outline": "#767777",
+                    "on-tertiary-fixed-variant": "#6a4e71",
+                    "on-error": "#ffefef",
+                    "secondary": "#2f6275",
+                    "tertiary-container": "#f5d1fb",
+                    "on-primary-container": "#623648",
+                    "secondary-dim": "#215669",
+                    "on-secondary": "#e4f5ff",
+                    "secondary-fixed-dim": "#a4d6ed",
+                    "tertiary-fixed": "#f5d1fb",
+                    "tertiary": "#6e5275",
+                    "surface": "#f6f6f6",
+                    "on-surface-variant": "#5a5c5c",
+                    "on-surface": "#2d2f2f",
+                    "on-background": "#2d2f2f",
+                    "on-secondary-container": "#1f5467",
+                    "surface-container-low": "#f0f1f1",
+                    "surface-container": "#e7e8e8",
+                    "error": "#b41340",
+                    "on-secondary-fixed-variant": "#2b5e71",
+                    "on-tertiary-fixed": "#4c3253",
+                    "surface-tint": "#7d4d5f",
+                    "on-primary": "#ffeff2",
+                    "primary-container": "#f8bbd0",
+                    "outline-variant": "#acadad",
+                    "on-tertiary": "#ffedfe",
+                    "surface-variant": "#dbdddd",
+                    "error-container": "#f74b6d",
+                    "surface-bright": "#f6f6f6",
+                    "inverse-on-surface": "#9c9d9d",
+                    "inverse-primary": "#f8bbd0",
+                    "surface-container-high": "#e1e3e3",
+                    "secondary-fixed": "#b2e4fb",
+                    "error-dim": "#a70138"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background dark:bg-slate-950 font-body text-on-background dark:text-slate-200 selection:bg-primary-fixed selection:text-on-primary-fixed-variant transition-colors duration-300">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-8 py-3 max-w-7xl mx-auto rounded-full mt-4 mx-4 bg-white/80 backdrop-blur-2xl dark:bg-slate-900/80 shadow-xl shadow-pink-500/5 border border-transparent dark:border-slate-800">
+<div class="text-2xl font-black text-pink-500 dark:text-pink-400 italic font-headline tracking-tight">The Digital Keepsake</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-slate-500 dark:text-slate-400 font-medium font-headline hover:scale-105 hover:text-pink-500 transition-all duration-300 active:scale-95" href="#">Memories</a>
+<a class="text-pink-600 dark:text-pink-300 border-b-2 border-pink-200 dark:border-pink-500/50 pb-1 font-headline hover:scale-105 hover:text-pink-500 transition-all duration-300 active:scale-95" href="#">Yearbook</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium font-headline hover:scale-105 hover:text-pink-500 transition-all duration-300 active:scale-95" href="#">Messages</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium font-headline hover:scale-105 hover:text-pink-500 transition-all duration-300 active:scale-95" href="#">Wall</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium font-headline hover:scale-105 hover:text-pink-500 transition-all duration-300 active:scale-95" href="#">Gallery</a>
+</nav>
+<div class="flex items-center gap-4">
+<!-- Theme Toggle Switch -->
+<button aria-label="Toggle Dark Mode" class="relative inline-flex items-center h-8 rounded-full w-14 bg-slate-200 dark:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500/50" id="theme-toggle">
+<span class="sr-only">Toggle theme</span>
+<span class="inline-block w-6 h-6 transform translate-x-1 bg-white dark:bg-pink-400 rounded-full transition-transform duration-300 flex items-center justify-center" id="theme-toggle-dot">
+<span class="material-symbols-outlined text-[16px] text-slate-500 dark:text-slate-900" data-icon="light_mode" id="theme-icon">light_mode</span>
+</span>
+</button>
+<div class="hidden sm:flex gap-3">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-slate-400 hover:text-pink-500 transition-colors cursor-pointer" data-icon="auto_awesome">auto_awesome</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-slate-400 hover:text-pink-500 transition-colors cursor-pointer" data-icon="favorite">favorite</span>
+</div>
+<button class="bg-primary-container dark:bg-pink-900/40 text-on-primary-container dark:text-pink-200 px-6 py-2 rounded-full font-headline font-bold text-sm hover:scale-105 transition-all active:scale-95 border border-pink-500/20">
+            Add Moment
+        </button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-12">
+<!-- Hero Title Section -->
+<div class="mb-16 space-y-4">
+<div class="inline-flex items-center gap-2 px-4 py-1 rounded-md bg-tertiary-container dark:bg-purple-900/30 text-on-tertiary-fixed dark:text-purple-300 font-headline text-sm font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="stars">stars</span>
+            Class of 2024 Superlatives
+        </div>
+<h1 class="text-5xl md:text-7xl font-black font-headline text-on-surface dark:text-white tracking-tighter max-w-3xl">
+            The Hall of <span class="text-primary dark:text-pink-400 italic">Fame &amp; Funny</span>
+</h1>
+<p class="text-on-surface-variant dark:text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+            Celebrating the unique quirks and legendary personalities that made this year unforgettable.
+        </p>
+</div>
+<!-- Horizontal Carousel Section -->
+<div class="relative group">
+<!-- Navigation Controls -->
+<div class="absolute -top-16 right-0 flex gap-4">
+<button class="w-12 h-12 rounded-full bg-surface-container-low dark:bg-slate-800 flex items-center justify-center hover:bg-primary-container dark:hover:bg-pink-900/40 transition-colors text-on-surface dark:text-slate-300">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-surface-container-low dark:bg-slate-800 flex items-center justify-center hover:bg-primary-container dark:hover:bg-pink-900/40 transition-colors text-on-surface dark:text-slate-300">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Carousel Track -->
+<div class="flex overflow-x-auto gap-8 pb-12 no-scrollbar snap-x snap-mandatory px-4 -mx-4">
+<!-- Card 1: Sleep Through Final -->
+<div class="flex-none w-[320px] md:w-[380px] snap-start">
+<div class="bg-surface-container-lowest dark:bg-slate-900 rounded-xl p-8 shadow-xl shadow-pink-500/5 rotate-[-1.2deg] relative group/card transition-transform hover:rotate-0 border border-transparent dark:border-slate-800">
+<div class="absolute -top-6 -right-4 w-16 h-16 bg-secondary-container dark:bg-cyan-900/40 rounded-full flex items-center justify-center shadow-lg transform rotate-[12deg] z-10 border dark:border-cyan-500/20">
+<span class="material-symbols-outlined text-on-secondary-container dark:text-cyan-300 text-3xl" data-icon="bedtime">bedtime</span>
+</div>
+<div class="mb-6 overflow-hidden rounded-lg aspect-[4/5] bg-surface-container dark:bg-slate-800">
+<img alt="portrait of a young man with a sleepy expression" class="w-full h-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjwnPVGwfcb2jitB_yUdG_5Swy99BVEXxCF8n6E3pHtyAl4ZYFajID5mp0rdqRu-Eh7XdrODd03n4jdTdS402INjBZBF3PNPpfNTuk3grUBfzuOxOOaE0hqUz1e30eNTNL4h5uR8wX85QogjHokmHOBhbGssvaaK8hgpytoqdf4YtDxQJm8qrI1mvaJVLWKSsgGi1gS2kE9uhJsPIV6odLka8TTWQyKBQRGS6H8wHqhMY9ayYJZvb4_AkTeOV7FZJwiP7DFmpxEY8"/>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline font-extrabold text-2xl text-on-surface dark:text-slate-100 tracking-tight">Marcus "Snooze" Lee</h3>
+<div class="text-primary dark:text-pink-400 font-bold font-headline text-sm uppercase tracking-widest">Most Likely to Sleep Through a Final</div>
+<p class="text-on-surface-variant dark:text-slate-400 font-body italic leading-snug">"I don't fail exams, I just dream about the answers from home."</p>
+</div>
+</div>
+</div>
+<!-- Card 2: Professional Procrastinator -->
+<div class="flex-none w-[320px] md:w-[380px] snap-start">
+<div class="bg-surface-container-lowest dark:bg-slate-900 rounded-xl p-8 shadow-xl shadow-pink-500/5 rotate-[1.5deg] relative group/card transition-transform hover:rotate-0 border border-transparent dark:border-slate-800">
+<div class="absolute -top-6 -right-4 w-16 h-16 bg-primary-container dark:bg-pink-900/40 rounded-full flex items-center justify-center shadow-lg transform rotate-[-8deg] z-10 border dark:border-pink-500/20">
+<span class="material-symbols-outlined text-on-primary-container dark:text-pink-300 text-3xl" data-icon="history_toggle_off">history_toggle_off</span>
+</div>
+<div class="mb-6 overflow-hidden rounded-lg aspect-[4/5] bg-surface-container dark:bg-slate-800">
+<img alt="young woman with glasses looking at a laptop" class="w-full h-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpAf6yizuUkWFYD7W6L4In_BSl0BJVpUgPJOkm8Dgd9KZ2TU1CkqZTglfmZd_U1FABlOKKVAJCvDHxLo9dFZNbMuq0M8c32PK5LnOMHBJ-9Tl23o77g4IqGQ19N13k80h0y_HSloOuF7tN0JULjyKRFvstV7aFO92CSlrRrDTO1SKAt-gmJv2qS-TSbOK7aDRtuN9RUbyu6UDGDSGvhf4wJ2ektws_xXRMus6QS8scTiljXFn1ng-4aDPEpHhqy12iwFTDM2vvW7I"/>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline font-extrabold text-2xl text-on-surface dark:text-slate-100 tracking-tight">Elena Vance</h3>
+<div class="text-secondary dark:text-cyan-400 font-bold font-headline text-sm uppercase tracking-widest">The Professional Procrastinator</div>
+<p class="text-on-surface-variant dark:text-slate-400 font-body italic leading-snug">"Diamonds are made under pressure, and so are my 2,000-word essays."</p>
+</div>
+</div>
+</div>
+<!-- Card 3: Main Character Energy -->
+<div class="flex-none w-[320px] md:w-[380px] snap-start">
+<div class="bg-surface-container-lowest dark:bg-slate-900 rounded-xl p-8 shadow-xl shadow-pink-500/5 rotate-[-0.8deg] relative group/card transition-transform hover:rotate-0 border border-transparent dark:border-slate-800">
+<div class="absolute -top-6 -right-4 w-16 h-16 bg-tertiary-container dark:bg-purple-900/40 rounded-full flex items-center justify-center shadow-lg transform rotate-[15deg] z-10 border dark:border-purple-500/20">
+<span class="material-symbols-outlined text-on-tertiary-container dark:text-purple-300 text-3xl" data-icon="movie">movie</span>
+</div>
+<div class="mb-6 overflow-hidden rounded-lg aspect-[4/5] bg-surface-container dark:bg-slate-800">
+<img alt="stylish young woman walking confidently" class="w-full h-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDREK8OsosekzYWWC1l2fwp1E-l5iKbe7wA21gz8uNP-PHCKbmHGAbqOGKyLLRzWHxVraj26cD1cIzEKNVVtPKktSnOcnUfsz6_oo3UQCeoFJh87qZUMzypZrk8HeKPuvTtm1vOKvrw83p34DHT34p_fsa87cEl2IMtaRLrAO5I7ifUWlw-xQrgCNBU-nP1VNS3dmXDXWiTKEa1t__yhoXblQiwbmF57yEQOx9fI2fghfg75fLJGcr7-o4i7nOox_O8Bplrm24e4A"/>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline font-extrabold text-2xl text-on-surface dark:text-slate-100 tracking-tight">Chloe Dubois</h3>
+<div class="text-tertiary dark:text-purple-400 font-bold font-headline text-sm uppercase tracking-widest">Main Character Energy</div>
+<p class="text-on-surface-variant dark:text-slate-400 font-body italic leading-snug">"I'm not dramatic, I just live in a high-budget indie film."</p>
+</div>
+</div>
+</div>
+<!-- Card 4: CEO -->
+<div class="flex-none w-[320px] md:w-[380px] snap-start">
+<div class="bg-surface-container-lowest dark:bg-slate-900 rounded-xl p-8 shadow-xl shadow-pink-500/5 rotate-[1.2deg] relative group/card transition-transform hover:rotate-0 border border-transparent dark:border-slate-800">
+<div class="absolute -top-6 -right-4 w-16 h-16 bg-secondary-container dark:bg-cyan-900/40 rounded-full flex items-center justify-center shadow-lg transform rotate-[-10deg] z-10 border dark:border-cyan-500/20">
+<span class="material-symbols-outlined text-on-secondary-container dark:text-cyan-300 text-3xl" data-icon="trophy">trophy</span>
+</div>
+<div class="mb-6 overflow-hidden rounded-lg aspect-[4/5] bg-surface-container dark:bg-slate-800">
+<img alt="young man smiling confidently" class="w-full h-full object-cover grayscale group-hover/card:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaFSjpJFfz8y43cz2mjBZkoZ2zMbfrhKzvDg3sFgYeQTxh7h5_pHh-6h9kyqNT1DHRi0LwRlrso_Pd9PIUPGK_S-QSfdtjdSeOT-S0J44lFFELa9rLt5fRRznaoAqZI9alUChtlr4EmM9tiSC6uilI2znM3UGoKIV80SlRPM-Le5c4R0zVL-aw8_-o5vmoMZbsz0t2RMW6kaGhIqC17D5le94rk5ydOZuxb2ajOTyUiL8bEb6YEVARFk-b6g7Rm5_pHAimvaXIgAQ"/>
+</div>
+<div class="space-y-2">
+<h3 class="font-headline font-extrabold text-2xl text-on-surface dark:text-slate-100 tracking-tight">David Chen</h3>
+<div class="text-secondary dark:text-cyan-400 font-bold font-headline text-sm uppercase tracking-widest">Most Likely to be CEO</div>
+<p class="text-on-surface-variant dark:text-slate-400 font-body italic leading-snug">"I've already scheduled my mid-life crisis for next Tuesday at 3 PM."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Elements -->
+<div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-container-low dark:bg-slate-900/50 p-8 rounded-lg space-y-4 border border-transparent dark:border-slate-800 transition-colors">
+<span class="material-symbols-outlined text-primary dark:text-pink-400 text-4xl" data-icon="history_edu">history_edu</span>
+<h4 class="font-headline font-bold text-xl dark:text-slate-100">The Hand-Penned Vault</h4>
+<p class="text-on-surface-variant dark:text-slate-400">Every award is nominated and voted by the class of 2024. These are the legends that defined our four years.</p>
+</div>
+<div class="bg-secondary-container/20 dark:bg-cyan-900/10 p-8 rounded-lg space-y-4 border border-transparent dark:border-cyan-900/30 transition-colors">
+<span class="material-symbols-outlined text-secondary dark:text-cyan-400 text-4xl" data-icon="social_distance">social_distance</span>
+<h4 class="font-headline font-bold text-xl dark:text-slate-100">Alumni Network</h4>
+<p class="text-on-surface-variant dark:text-slate-400">Find where your favorite legends ended up after graduation in our interactive alumni directory.</p>
+</div>
+<div class="bg-tertiary-container/20 dark:bg-purple-900/10 p-8 rounded-lg space-y-4 border border-transparent dark:border-purple-900/30 transition-colors">
+<span class="material-symbols-outlined text-tertiary dark:text-purple-400 text-4xl" data-icon="celebration">celebration</span>
+<h4 class="font-headline font-bold text-xl dark:text-slate-100">Farewell Bash</h4>
+<p class="text-on-surface-variant dark:text-slate-400">Don't miss the final send-off! Check the wall for details on the end-of-year gala.</p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-16 pb-8 bg-slate-100 dark:bg-slate-900/50 mt-20 transition-colors">
+<div class="flex flex-col items-center gap-6 px-4 text-center w-full max-w-7xl mx-auto">
+<div class="text-lg font-bold text-slate-700 dark:text-slate-300 font-headline">The Digital Keepsake</div>
+<div class="flex flex-wrap justify-center gap-6 md:gap-12">
+<a class="font-headline text-sm font-medium text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">The Vault</a>
+<a class="font-headline text-sm font-medium text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">Alumni Directory</a>
+<a class="font-headline text-sm font-medium text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">Lost &amp; Found</a>
+<a class="font-headline text-sm font-medium text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">Farewell Letter</a>
+</div>
+<div class="w-full h-px bg-slate-200 dark:bg-slate-800 my-4"></div>
+<p class="font-body text-sm font-medium text-slate-400 dark:text-slate-500 italic">
+            © 2024 Class of 2024. Hand-penned with love and nostalgia.
+        </p>
+</div>
+</footer>
+<script>
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleDot = document.getElementById('theme-toggle-dot');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+
+    themeToggleBtn.addEventListener('click', () => {
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            themeToggleDot.classList.remove('translate-x-7');
+            themeToggleDot.classList.add('translate-x-1');
+            themeIcon.textContent = 'light_mode';
+        } else {
+            html.classList.add('dark');
+            themeToggleDot.classList.remove('translate-x-1');
+            themeToggleDot.classList.add('translate-x-7');
+            themeIcon.textContent = 'dark_mode';
+        }
+    });
+
+    // Check system preference on load
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // Uncomment to enable auto-dark based on system
+        // html.classList.add('dark');
+        // themeToggleDot.classList.add('translate-x-7');
+        // themeIcon.textContent = 'dark_mode';
+    }
+</script>
+</body></html>

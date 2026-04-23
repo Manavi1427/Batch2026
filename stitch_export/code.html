@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,800;1,800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#510017",
+                    "surface-container-highest": "#dbdddd",
+                    "primary-fixed-dim": "#e9aec3",
+                    "on-secondary-fixed": "#014154",
+                    "tertiary-fixed-dim": "#e7c3ed",
+                    "on-primary-fixed": "#4b2334",
+                    "inverse-surface": "#0c0f0f",
+                    "surface-dim": "#d3d5d5",
+                    "on-primary-fixed-variant": "#6c3f51",
+                    "primary": "#7d4d5f",
+                    "on-tertiary-container": "#604567",
+                    "secondary-container": "#b2e4fb",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-dim": "#614668",
+                    "primary-dim": "#6f4253",
+                    "primary-fixed": "#f8bbd0",
+                    "background": "#f6f6f6",
+                    "outline": "#767777",
+                    "on-tertiary-fixed-variant": "#6a4e71",
+                    "on-error": "#ffefef",
+                    "secondary": "#2f6275",
+                    "tertiary-container": "#f5d1fb",
+                    "on-primary-container": "#623648",
+                    "secondary-dim": "#215669",
+                    "on-secondary": "#e4f5ff",
+                    "secondary-fixed-dim": "#a4d6ed",
+                    "tertiary-fixed": "#f5d1fb",
+                    "tertiary": "#6e5275",
+                    "surface": "#f6f6f6",
+                    "on-surface-variant": "#5a5c5c",
+                    "on-surface": "#2d2f2f",
+                    "on-background": "#2d2f2f",
+                    "on-secondary-container": "#1f5467",
+                    "surface-container-low": "#f0f1f1",
+                    "surface-container": "#e7e8e8",
+                    "error": "#b41340",
+                    "on-secondary-fixed-variant": "#2b5e71",
+                    "on-tertiary-fixed": "#4c3253",
+                    "surface-tint": "#7d4d5f",
+                    "on-primary": "#ffeff2",
+                    "primary-container": "#f8bbd0",
+                    "outline-variant": "#acadad",
+                    "on-tertiary": "#ffedfe",
+                    "surface-variant": "#dbdddd",
+                    "error-container": "#f74b6d",
+                    "surface-bright": "#f6f6f6",
+                    "inverse-on-surface": "#9c9d9d",
+                    "inverse-primary": "#f8bbd0",
+                    "surface-container-high": "#e1e3e3",
+                    "secondary-fixed": "#b2e4fb",
+                    "error-dim": "#a70138"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrapbook-blur {
+            backdrop-filter: blur(80px);
+        }
+        .floating-doodle {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .dark {
+            --surface: #0f172a;
+            --on-surface: #f1f5f9;
+        }
+    </style>
+</head>
+<body class="bg-surface dark:bg-slate-950 font-body text-on-surface dark:text-slate-100 selection:bg-primary-fixed selection:text-on-primary-fixed transition-colors duration-500">
+<!-- TopAppBar Component -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-8 py-3 max-w-7xl mx-auto rounded-full mt-4 bg-white/80 backdrop-blur-2xl dark:bg-slate-900/60 no-border shadow-xl shadow-pink-500/5 transition-all duration-300">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-pink-400 dark:text-pink-300 italic font-headline">The Digital Keepsake</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-pink-600 dark:text-pink-300 border-b-2 border-pink-200 dark:border-pink-500/50 pb-1 hover:scale-105 hover:text-pink-500 transition-all duration-300" href="#">Memories</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-slate-500 dark:text-slate-400 hover:scale-105 hover:text-pink-500 dark:hover:text-pink-300 transition-all duration-300" href="#">Yearbook</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-slate-500 dark:text-slate-400 hover:scale-105 hover:text-pink-500 dark:hover:text-pink-300 transition-all duration-300" href="#">Messages</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-slate-500 dark:text-slate-400 hover:scale-105 hover:text-pink-500 dark:hover:text-pink-300 transition-all duration-300" href="#">Wall</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-slate-500 dark:text-slate-400 hover:scale-105 hover:text-pink-500 dark:hover:text-pink-300 transition-all duration-300" href="#">Gallery</a>
+</nav>
+<div class="flex items-center gap-4">
+<!-- Dark Mode Toggle -->
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="theme-toggle">
+<span class="hidden material-symbols-outlined text-amber-300" id="theme-toggle-dark-icon">light_mode</span>
+<span class="material-symbols-outlined text-slate-500" id="theme-toggle-light-icon">dark_mode</span>
+</button>
+<button class="material-symbols-outlined text-slate-500 dark:text-slate-400 hover:text-pink-500 transition-all">auto_awesome</button>
+<button class="material-symbols-outlined text-slate-500 dark:text-slate-400 hover:text-pink-500 transition-all">favorite</button>
+<button class="bg-primary-container dark:bg-pink-900/40 text-on-primary-container dark:text-pink-100 px-6 py-2 rounded-full font-bold active:scale-95 transition-transform hover:scale-105 transition-all duration-300">Add Moment</button>
+</div>
+</header>
+<main class="relative min-h-screen overflow-hidden">
+<!-- Background Layer: Gradient + Blurred Collage Elements -->
+<div class="absolute inset-0 -z-10 bg-gradient-to-br from-surface via-primary-fixed/20 to-secondary-fixed/20 dark:from-slate-950 dark:via-purple-950/20 dark:to-blue-950/20 transition-colors duration-500">
+<!-- Decorative Blurred Photo Blobs -->
+<div class="absolute top-[10%] left-[5%] w-64 h-64 rounded-xl -rotate-12 blur-3xl opacity-40 bg-primary-fixed dark:bg-pink-600/20"></div>
+<div class="absolute bottom-[20%] right-[10%] w-80 h-80 rounded-xl rotate-6 blur-3xl opacity-30 bg-secondary-fixed dark:bg-blue-600/20"></div>
+<div class="absolute top-[40%] right-[20%] w-48 h-48 rounded-full blur-3xl opacity-50 bg-tertiary-fixed dark:bg-purple-600/20"></div>
+<!-- Asymmetric Blurred Images (The Scrapbook Aesthetic) -->
+<div class="absolute top-20 left-10 w-48 h-64 bg-surface-container-lowest dark:bg-slate-800 rounded-lg shadow-xl -rotate-6 opacity-60 dark:opacity-40 blur-[2px]">
+<img alt="blurred nostalgic image of a college campus courtyard in spring with soft blooming trees and sunlight" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWlUWMpkabaHQ9sa0utRqmCx7Fp4HxjUPwXbKUiieVLGIHZ1GrZnu1CIPlTuZCht909OvQrFD0_OYQ5NuiIul88_FpVv5gyBmrptCn_XQXAikb6BIQnLgXJsCgBPyBSB6FEeOO5ivrdrlLCR1EJXwlcsaFfPcyJA11UcCbwiD3uaiK2R8oMcONDdBXnaQZKFuJ-ZDXwRxi4qQidIiB2A5KlnFMi8icGLtTReb-1qfnFxBJaCftouCLIG7CQfJVaIORhtI0emd1pi8"/>
+</div>
+<div class="absolute bottom-40 right-20 w-56 h-40 bg-surface-container-lowest dark:bg-slate-800 rounded-lg shadow-xl rotate-12 opacity-60 dark:opacity-40 blur-[3px]">
+<img alt="soft focus group of young diverse friends laughing and chatting at a messy table in a sunlit cafe" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_mJfSZ-zZ5d7Z1wAJapxA-5qZsg56uweLsBCO8aCcrzsoEfupKLwfGx9EY3mohkzIGlzXx8OWFCT9_DiQ_AseMdZGidxATi8ryiJFZKYjLrzh6Wa7KXxKFKrQJ35TWt_k43P0uRk14N_PvtKIX-3nzWAqseDHQNwDGvzufH2EixQFXIF3e-E8Fd-RYu4-1hB1_wpve1WU1MBoysJm7PIBISMmz-oqdsvojes8LX7l5pSAeuHsI53sFQhnBMWUL9rsqX02GfSZsJg"/>
+</div>
+</div>
+<!-- Floating Doodles -->
+<div class="absolute top-1/4 left-1/4 floating-doodle" style="animation-delay: 0s;">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant/40 dark:text-blue-400/30" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="absolute bottom-1/3 left-10 floating-doodle" style="animation-delay: 1s;">
+<span class="material-symbols-outlined text-3xl text-pink-300/60 dark:text-pink-400/40" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="absolute top-1/3 right-1/4 floating-doodle" style="animation-delay: 2s;">
+<span class="material-symbols-outlined text-5xl text-secondary-fixed-dim/50 dark:text-purple-400/30" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div class="absolute top-20 right-40 floating-doodle" style="animation-delay: 1.5s;">
+<span class="material-symbols-outlined text-2xl text-tertiary-fixed-dim dark:text-yellow-400/30" style="font-variation-settings: 'FILL' 1;">celebration</span>
+</div>
+<!-- Hero Content -->
+<section class="flex flex-col items-center justify-center min-h-[calc(100vh-120px)] px-6 text-center max-w-5xl mx-auto">
+<div class="relative z-10">
+<h1 class="font-headline font-extrabold text-6xl md:text-8xl lg:text-9xl tracking-tighter text-on-surface dark:text-white mb-6 leading-tight">
+                    PSCS Batch of 2024 <span class="block italic text-primary dark:text-pink-300">— We survived.</span>
+</h1>
+<p class="font-body text-xl md:text-2xl text-on-surface-variant dark:text-slate-400 max-w-2xl mx-auto mb-12">
+                    4 years, 1000 coffees, and memories that will last a lifetime. This is our curated digital scrapbook.
+                </p>
+<div class="relative group">
+<!-- Button Glow Effect -->
+<div class="absolute inset-0 bg-primary-container dark:bg-pink-600 blur-3xl opacity-50 dark:opacity-20 group-hover:opacity-100 transition-opacity duration-500 scale-125"></div>
+<button class="relative bg-surface-container-lowest dark:bg-slate-900 text-on-primary-container dark:text-pink-200 px-12 py-5 rounded-full text-2xl font-headline font-extrabold shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-4 border border-transparent dark:border-slate-800">
+                        Enter The Vault
+                        <span class="material-symbols-outlined text-3xl">arrow_right_alt</span>
+</button>
+</div>
+</div>
+<!-- Bento Preview Grid (Visual Interest) -->
+<div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 w-full opacity-80 hover:opacity-100 transition-opacity duration-500">
+<div class="bg-surface-container-lowest dark:bg-slate-800 p-2 rounded-xl shadow-lg -rotate-3 hover:rotate-0 transition-transform duration-500">
+<img alt="candid close-up of university students studying together in a library with warm desk lamps" class="w-full aspect-square object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBmm8EFaTalwMWe-aA7RT7zd1fviWJVzmnfg_UT6eAOSf2OjyBgEr483k6lyp3NJ5lDopLe2RnsTOkffzyBluCmFnghJ1O7hL-yAfKl9xQ-YnUQRGBIM9ZFrl_tA_Zj77hxwPZE3DMRfCm320oWNt8MOt2Cksc71O0QcMDpRzgGg36C7albLJFyuy3hXFxAVFkrdXxeHx92lOUWKsboe8ZJ-f72aCM1QOekVrvYCaZIgCmm8wZjOnhg3YBfBizxZCpIcnArtEosg8"/>
+</div>
+<div class="bg-surface-container-lowest dark:bg-slate-800 p-2 rounded-xl shadow-lg rotate-2 hover:rotate-0 transition-transform duration-500 translate-y-4">
+<img alt="low angle shot of a group of friends celebrating graduation throwing their caps in the blue sky" class="w-full aspect-square object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByESndx6TwM8rfrKKjnibZZmL77-TaNI5zETELUp4akwKbevuJvHgeUvsMX4rpQKymjLONDEKW84-Bwm2CxgIiKdKwcDNOGR6vGM0a9FGmuS9FPeIjFoAg87yS-lGaiYLjtDEE1Velj_VPJnQskYtjMj4gOIQotkXDI2iWkSbDW7h5Ff2nlb8oqS87RWidW0tyGyqjgeJXguEcfXKuKawF_l7VBzPQxn4H2EbHpCjRZ5gqpcZa7JBK5LsKaoXJcp9STERsi767_mk"/>
+</div>
+<div class="bg-surface-container-lowest dark:bg-slate-800 p-2 rounded-xl shadow-lg -rotate-1 hover:rotate-0 transition-transform duration-500">
+<img alt="atmospheric night shot of a college festival with colorful fairy lights and crowds of people" class="w-full aspect-square object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQNiwgHP7wGN7Y8ckX_VXaQaVPV3tq7JisK-j2UKlNSBR_-0jdaZQb98zYlaI2FqtUP_CIMs2d-17lNFpbDCC_3QO6_BlQqiyUejwcXd9u2bXe_p1TDU1HBjTLFRhH_fFm4a08kaMX9mcqEc2vPeS3DszbQlVGmf9EOqjEIVs8FuyfIJkQdvRWUByVW1N23VlMYB8bAtplWXCUPtILFbsieTUo7vO8hSfxIp5BBuBzNPxdnZ7B6ylTNp89acI_Lncm1xOEKtQJsTM"/>
+</div>
+<div class="bg-surface-container-lowest dark:bg-slate-800 p-2 rounded-xl shadow-lg rotate-6 hover:rotate-0 transition-transform duration-500 translate-y-2">
+<img alt="polaroid style photo of students laughing together on a campus lawn under a big tree" class="w-full aspect-square object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4K-GWgiBm5rb_HSeLPzYo4sB5gSnCYh8Pu5gs4JM_i_AL-yer0UNVnh3HSjWU-TEGGCNevZ99_oV93IIc5lFRji9p0t9kHN0UrdvyuZmWphbHDDmg1rbtrGVx1ppXy_OCOM7Ww_6zF4Ju4e8DDmH5W2TiCMvnvZUz9_0yeW_PUoDDWPGzFw7zwuc_910P_0OQcfX4yy1FiR5E9HlMVb3bHGndBT4ZTVoTjXn6bVcG7e-llZc1_aDCbuYyUHDVBcqNXV7jyGZCcvU"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="w-full pt-16 pb-8 flex flex-col items-center gap-6 px-4 text-center bg-slate-50 dark:bg-slate-900 transition-colors duration-500 font-['Inter'] text-sm font-medium">
+<div class="flex flex-wrap justify-center gap-8 mb-4">
+<a class="text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">The Vault</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">Alumni Directory</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">Lost &amp; Found</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-pink-400 hover:underline transition-colors opacity-80 hover:opacity-100" href="#">Farewell Letter</a>
+</div>
+<div class="text-lg font-bold text-slate-700 dark:text-slate-200 mb-2">Class of 2024</div>
+<p class="text-pink-400 dark:text-pink-300">© 2024 Class of 2024. Hand-penned with love and nostalgia.</p>
+<div class="mt-4 flex gap-4 text-on-surface-variant/30 dark:text-slate-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+</footer>
+<script>
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+    // Change the icons inside the button based on previous settings
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        themeToggleDarkIcon.classList.remove('hidden');
+        document.documentElement.classList.add('dark');
+    } else {
+        themeToggleLightIcon.classList.remove('hidden');
+        document.documentElement.classList.remove('dark');
+    }
+
+    themeToggleBtn.addEventListener('click', function() {
+        // toggle icons inside button
+        themeToggleDarkIcon.classList.toggle('hidden');
+        themeToggleLightIcon.classList.toggle('hidden');
+
+        // if set via local storage previously
+        if (localStorage.getItem('color-theme')) {
+            if (localStorage.getItem('color-theme') === 'light') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            }
+        // if NOT set via local storage previously
+        } else {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+    });
+</script>
+</body></html>

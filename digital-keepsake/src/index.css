@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,800;1,800&display=swap');
+
+:root {
+  --surface: #f6f6f6;
+  --surface-container-low: #f0f1f1;
+  --surface-container-lowest: #ffffff;
+  --on-surface: #2d2f2f;
+  --on-surface-variant: #5a5c5c;
+  --primary: #7d4d5f;
+  --primary-container: #f8bbd0;
+  --secondary-container: #b2e4fb;
+  --tertiary-container: #f5d1fb;
+  --headline: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --body: 'Inter', system-ui, sans-serif;
+  color: var(--on-surface);
+  background: var(--surface);
+  font-family: var(--body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--surface);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+img {
+  max-width: 100%;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+::selection {
+  background: #f8bbd0;
+  color: #4b2334;
+}
