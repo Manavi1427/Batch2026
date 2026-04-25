@@ -103,12 +103,6 @@ const featureCards = [
     tone: 'neutral',
   },
   {
-    title: 'Alumni Network',
-    text: 'Find where your favorite legends ended up after graduation in our interactive alumni directory.',
-    icon: UsersRound,
-    tone: 'cyan',
-  },
-  {
     title: 'Farewell Bash',
     text: "Don't miss the final send-off! Check the wall for details on the end-of-year gala.",
     icon: PartyPopper,
@@ -354,7 +348,7 @@ function App() {
           </a>
         </div>
         <div className="footer-rule" />
-        <p>© 2024 Class of 2024. Hand-penned with love and nostalgia.</p>
+        <p>© 2024 Class of 2026. Hand-penned with love and nostalgia.</p>
       </footer>
     </div>
   )
@@ -367,7 +361,7 @@ function HomePage({ navigateToPinMemories }) {
         <div className="home-copy">
           <div className="eyebrow">
             <Sparkles size={16} />
-            PSCS Batch 2024
+            PSCS Batch 2026
           </div>
           <h1>
             The Digital <span>Keepsake</span>
@@ -436,7 +430,7 @@ function YearbookPage() {
       <section className="yearbook-hero reveal" id="yearbook">
         <div className="eyebrow">
           <Star size={16} fill="currentColor" />
-          Class of 2024 Superlatives
+          Class of 2026 Superlatives
         </div>
         <h1>
           The Hall of <span>Fame &amp; Funny</span>
