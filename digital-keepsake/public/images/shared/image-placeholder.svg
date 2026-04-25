@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1125" viewBox="0 0 900 1125" role="img" aria-labelledby="title desc">
+  <title id="title">Image placeholder</title>
+  <desc id="desc">A soft placeholder for a future class memory photo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8bbd0"/>
+      <stop offset="0.55" stop-color="#f5d1fb"/>
+      <stop offset="1" stop-color="#b2e4fb"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.48"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1125" fill="url(#bg)"/>
+  <rect x="90" y="124" width="720" height="877" rx="52" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.7" stroke-width="8"/>
+  <circle cx="325" cy="392" r="78" fill="#ffffff" fill-opacity="0.8"/>
+  <path fill="#ffffff" fill-opacity="0.86" d="M169 858l189-245 139 172 82-105 152 178H169z"/>
+  <path fill="#7d4d5f" fill-opacity="0.88" d="M450 260c-77 0-140 63-140 140 0 105 140 247 140 247s140-142 140-247c0-77-63-140-140-140zm0 199a60 60 0 1 1 0-120 60 60 0 0 1 0 120z"/>
+  <text x="450" y="928" fill="#4c3253" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="800" text-anchor="middle">Add Image Here</text>
+  <text x="450" y="984" fill="#604567" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600" text-anchor="middle">Upload your photo to this page folder</text>
+</svg>

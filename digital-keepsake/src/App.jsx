@@ -22,6 +22,19 @@ import {
 import './App.css'
 
 const navItems = ['Memories', 'Yearbook', 'Messages', 'Wall', 'Gallery']
+const fallbackImage = '/images/shared/image-placeholder.svg'
+const pageImages = {
+  home: {
+    featuredStudy: '/images/home/featured-study.jpg',
+    featuredCelebration: '/images/home/featured-celebration.jpg',
+  },
+  yearbook: {
+    marcusLee: '/images/yearbook/marcus-lee.jpg',
+    elenaVance: '/images/yearbook/elena-vance.jpg',
+    chloeDubois: '/images/yearbook/chloe-dubois.jpg',
+    davidChen: '/images/yearbook/david-chen.jpg',
+  },
+}
 
 const homeMemories = [
   {
@@ -46,8 +59,7 @@ const superlatives = [
     name: 'Marcus "Snooze" Lee',
     award: 'Most Likely to Sleep Through a Final',
     quote: "I don't fail exams, I just dream about the answers from home.",
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBjwnPVGwfcb2jitB_yUdG_5Swy99BVEXxCF8n6E3pHtyAl4ZYFajID5mp0rdqRu-Eh7XdrODd03n4jdTdS402INjBZBF3PNPpfNTuk3grUBfzuOxOOaE0hqUz1e30eNTNL4h5uR8wX85QogjHokmHOBhbGssvaaK8hgpytoqdf4YtDxQJm8qrI1mvaJVLWKSsgGi1gS2kE9uhJsPIV6odLka8TTWQyKBQRGS6H8wHqhMY9ayYJZvb4_AkTeOV7FZJwiP7DFmpxEY8',
+    image: pageImages.yearbook.marcusLee,
     alt: 'Portrait of a young man with a sleepy expression',
     icon: Moon,
     color: 'cyan',
@@ -57,8 +69,7 @@ const superlatives = [
     name: 'Elena Vance',
     award: 'The Professional Procrastinator',
     quote: 'Diamonds are made under pressure, and so are my 2,000-word essays.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCpAf6yizuUkWFYD7W6L4In_BSl0BJVpUgPJOkm8Dgd9KZ2TU1CkqZTglfmZd_U1FABlOKKVAJCvDHxLo9dFZNbMuq0M8c32PK5LnOMHBJ-9Tl23o77g4IqGQ19N13k80h0y_HSloOuF7tN0JULjyKRFvstV7aFO92CSlrRrDTO1SKAt-gmJv2qS-TSbOK7aDRtuN9RUbyu6UDGDSGvhf4wJ2ektws_xXRMus6QS8scTiljXFn1ng-4aDPEpHhqy12iwFTDM2vvW7I',
+    image: pageImages.yearbook.elenaVance,
     alt: 'Young woman with glasses looking at a laptop',
     icon: Clock3,
     color: 'pink',
@@ -68,8 +79,7 @@ const superlatives = [
     name: 'Chloe Dubois',
     award: 'Main Character Energy',
     quote: "I'm not dramatic, I just live in a high-budget indie film.",
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBDREK8OsosekzYWWC1l2fwp1E-l5iKbe7wA21gz8uNP-PHCKbmHGAbqOGKyLLRzWHxVraj26cD1cIzEKNVVtPKktSnOcnUfsz6_oo3UQCeoFJh87qZUMzypZrk8HeKPuvTtm1vOKvrw83p34DHT34p_fsa87cEl2IMtaRLrAO5I7ifUWlw-xQrgCNBU-nP1VNS3dmXDXWiTKEa1t__yhoXblQiwbmF57yEQOx9fI2fghfg75fLJGcr7-o4i7nOox_O8Bplrm24e4A',
+    image: pageImages.yearbook.chloeDubois,
     alt: 'Stylish young woman walking confidently',
     icon: Zap,
     color: 'purple',
@@ -79,8 +89,7 @@ const superlatives = [
     name: 'David Chen',
     award: 'Most Likely to be CEO',
     quote: "I've already scheduled my mid-life crisis for next Tuesday at 3 PM.",
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCaFSjpJFfz8y43cz2mjBZkoZ2zMbfrhKzvDg3sFgYeQTxh7h5_pHh-6h9kyqNT1DHRi0LwRlrso_Pd9PIUPGK_S-QSfdtjdSeOT-S0J44lFFELa9rLt5fRRznaoAqZI9alUChtlr4EmM9tiSC6uilI2znM3UGoKIV80SlRPM-Le5c4R0zVL-aw8_-o5vmoMZbsz0t2RMW6kaGhIqC17D5le94rk5ydOZuxb2ajOTyUiL8bEb6YEVARFk-b6g7Rm5_pHAimvaXIgAQ',
+    image: pageImages.yearbook.davidChen,
     alt: 'Young man smiling confidently',
     icon: Trophy,
     color: 'cyan',
@@ -108,6 +117,19 @@ const featureCards = [
     tone: 'purple',
   },
 ]
+
+function ImageWithFallback({ src, alt }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onError={(event) => {
+        event.currentTarget.onerror = null
+        event.currentTarget.src = fallbackImage
+      }}
+    />
+  )
+}
 
 function App() {
   const getRoute = () => (window.location.hash === '#/yearbook' ? 'yearbook' : 'home')
@@ -287,16 +309,10 @@ function HomePage() {
 
         <div className="home-stack" aria-label="Featured memories">
           <article className="stack-card stack-one">
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBmm8EFaTalwMWe-aA7RT7zd1fviWJVzmnfg_UT6eAOSf2OjyBgEr483k6lyp3NJ5lDopLe2RnsTOkffzyBluCmFnghJ1O7hL-yAfKl9xQ-YnUQRGBIM9ZFrl_tA_Zj77hxwPZE3DMRfCm320oWNt8MOt2Cksc71O0QcMDpRzgGg36C7albLJFyuy3hXFxAVFkrdXxeHx92lOUWKsboe8ZJ-f72aCM1QOekVrvYCaZIgCmm8wZjOnhg3YBfBizxZCpIcnArtEosg8"
-              alt="Students studying together"
-            />
+            <ImageWithFallback src={pageImages.home.featuredStudy} alt="Students studying together" />
           </article>
           <article className="stack-card stack-two">
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuByESndx6TwM8rfrKKjnibZZmL77-TaNI5zETELUp4akwKbevuJvHgeUvsMX4rpQKymjLONDEKW84-Bwm2CxgIiKdKwcDNOGR6vGM0a9FGmuS9FPeIjFoAg87yS-lGaiYLjtDEE1Velj_VPJnQskYtjMj4gOIQotkXDI2iWkSbDW7h5Ff2nlb8oqS87RWidW0tyGyqjgeJXguEcfXKuKawF_l7VBzPQxn4H2EbHpCjRZ5gqpcZa7JBK5LsKaoXJcp9STERsi767_mk"
-              alt="Graduates celebrating"
-            />
+            <ImageWithFallback src={pageImages.home.featuredCelebration} alt="Graduates celebrating" />
           </article>
         </div>
       </section>
@@ -375,7 +391,7 @@ function YearbookPage({ carouselRef, scrollCarousel }) {
                     <AwardIcon size={30} />
                   </div>
                   <div className="portrait">
-                    <img src={image} alt={alt} />
+                    <ImageWithFallback src={image} alt={alt} />
                   </div>
                   <h2>{name}</h2>
                   <strong>{award}</strong>
