@@ -18,6 +18,7 @@ import {
   X,
   Zap,
 } from 'lucide-react'
+import Gallery from './pages/Gallery'
 import MemoriesWall from './pages/MemoriesWall'
 import PinYourMemories from './pages/PinYourMemories'
 import './App.css'
@@ -133,6 +134,10 @@ function App() {
       return 'wall'
     }
 
+    if (window.location.pathname.startsWith('/gallery') || window.location.hash === '#/gallery') {
+      return 'gallery'
+    }
+
     return window.location.hash === '#/yearbook' ? 'yearbook' : 'home'
   }
   const [darkMode, setDarkMode] = useState(() => {
@@ -152,7 +157,8 @@ function App() {
     if (
       !window.location.hash &&
       !window.location.pathname.startsWith('/pin-your-memories') &&
-      !window.location.pathname.startsWith('/wall')
+      !window.location.pathname.startsWith('/wall') &&
+      !window.location.pathname.startsWith('/gallery')
     ) {
       window.history.replaceState(null, '', '/#/')
     }
@@ -205,6 +211,15 @@ function App() {
       return
     }
 
+    if (item === 'Gallery') {
+      event.preventDefault()
+      window.history.pushState(null, '', '/gallery')
+      setRoute('gallery')
+      setMenuOpen(false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
     if (route !== 'home') {
       event.preventDefault()
       const sectionId = item.toLowerCase()
@@ -241,6 +256,14 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const navigateToGallery = (event) => {
+    event?.preventDefault()
+    window.history.pushState(null, '', '/gallery')
+    setRoute('gallery')
+    setMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const navigateToHomeSection = (event, sectionId) => {
     event.preventDefault()
     window.history.pushState(null, '', `/#${sectionId}`)
@@ -263,11 +286,20 @@ function App() {
             <a
               className={
                 (item === 'Yearbook' && route === 'yearbook') || (item === 'Wall' && route === 'wall')
+                  || (item === 'Gallery' && route === 'gallery')
                   ? 'active'
                   : ''
               }
               key={item}
-              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/wall' : `#${item.toLowerCase()}`}
+              href={
+                item === 'Yearbook'
+                  ? '/#/yearbook'
+                  : item === 'Wall'
+                    ? '/wall'
+                    : item === 'Gallery'
+                      ? '/gallery'
+                      : `#${item.toLowerCase()}`
+              }
               onClick={(event) => handleSectionNav(event, item)}
             >
               {item}
@@ -309,7 +341,15 @@ function App() {
           {navItems.map((item) => (
             <a
               key={item}
-              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/wall' : `#${item.toLowerCase()}`}
+              href={
+                item === 'Yearbook'
+                  ? '/#/yearbook'
+                  : item === 'Wall'
+                    ? '/wall'
+                    : item === 'Gallery'
+                      ? '/gallery'
+                      : `#${item.toLowerCase()}`
+              }
               onClick={(event) => {
                 setMenuOpen(false)
                 handleSectionNav(event, item)
@@ -327,8 +367,10 @@ function App() {
         <PinYourMemories navigateToWall={navigateToWall} />
       ) : route === 'wall' ? (
         <MemoriesWall navigateToPinMemories={navigateToPinMemories} />
+      ) : route === 'gallery' ? (
+        <Gallery />
       ) : (
-        <HomePage navigateToPinMemories={navigateToPinMemories} />
+        <HomePage navigateToGallery={navigateToGallery} navigateToPinMemories={navigateToPinMemories} />
       )}
 
       <footer id="gallery">
@@ -354,7 +396,7 @@ function App() {
   )
 }
 
-function HomePage({ navigateToPinMemories }) {
+function HomePage({ navigateToGallery, navigateToPinMemories }) {
   return (
     <main id="top" className="home-page">
       <section className="home-hero reveal">
@@ -368,7 +410,7 @@ function HomePage({ navigateToPinMemories }) {
           </h1>
           <p>One warm scrapbook for every photo, note, inside joke, farewell message, and unforgettable batch moment.</p>
           <div className="hero-actions">
-            <a className="primary-link" href="#memories">
+            <a className="primary-link" href="/gallery" onClick={navigateToGallery}>
               Explore Memories <ArrowRight size={22} />
             </a>
             <a className="secondary-link" href="#/yearbook">

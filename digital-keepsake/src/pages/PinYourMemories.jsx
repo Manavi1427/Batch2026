@@ -2,13 +2,28 @@ import { useMemo, useState } from 'react'
 import { ArrowRight, Heart, LoaderCircle, Pin, Send, Sparkles } from 'lucide-react'
 import { createMemory } from '../services/memoryService'
 
+const COLLEGE_EMAIL_DOMAIN = '@ddu.du.ac.in'
+
 const initialForm = {
   senderName: '',
+  senderEmail: '',
   message: '',
 }
 
 function PinYourMemories({ navigateToWall }) {
-  const [form, setForm] = useState(initialForm)
+  const [savedIdentity, setSavedIdentity] = useState(() => readSavedIdentity())
+  const [identityLocked, setIdentityLocked] = useState(() => Boolean(readSavedIdentity()))
+  const [form, setForm] = useState(() => {
+    const storedIdentity = readSavedIdentity()
+
+    return storedIdentity
+      ? {
+          ...initialForm,
+          senderName: storedIdentity.senderName,
+          senderEmail: storedIdentity.senderEmail,
+        }
+      : initialForm
+  })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState({ type: '', message: '' })
 
@@ -26,17 +41,44 @@ function PinYourMemories({ navigateToWall }) {
   async function handleSubmit(event) {
     event.preventDefault()
 
-    if (!form.senderName.trim() || !form.message.trim()) {
+    const senderName = form.senderName.trim()
+    const senderEmail = form.senderEmail.trim().toLowerCase()
+    const message = form.message.trim()
+
+    if (!senderName || !message) {
       setStatus({ type: 'error', message: 'Your name and memory are required before pinning.' })
+      return
+    }
+
+    if (!isValidEmail(senderEmail)) {
+      setStatus({ type: 'error', message: 'Please enter a valid email address.' })
+      return
+    }
+
+    if (!senderEmail.endsWith(COLLEGE_EMAIL_DOMAIN)) {
+      setStatus({ type: 'error', message: `Please use your college email ending with ${COLLEGE_EMAIL_DOMAIN}.` })
+      return
+    }
+
+    const lastPostTime = Number(localStorage.getItem('lastMemoryPostTime'))
+
+    if (lastPostTime && Date.now() - lastPostTime < 10000) {
+      setStatus({ type: 'error', message: 'Wait a few seconds before posting again.' })
       return
     }
 
     try {
       setIsSubmitting(true)
       setStatus({ type: '', message: '' })
-      const createdMemory = await createMemory(form)
+      const createdMemory = await createMemory({ senderName, senderEmail, message })
+      const identity = { senderName, senderEmail }
+
+      localStorage.setItem('farewellUser', JSON.stringify(identity))
+      localStorage.setItem('lastMemoryPostTime', Date.now().toString())
       sessionStorage.setItem('latest-pinned-memory', JSON.stringify(createdMemory))
-      setForm(initialForm)
+      setSavedIdentity(identity)
+      setIdentityLocked(true)
+      setForm({ senderName, senderEmail, message: '' })
       setStatus({ type: 'success', message: 'Pinned. Opening the wall now...' })
       window.setTimeout(() => navigateToWall(), 450)
     } catch (error) {
@@ -73,6 +115,12 @@ function PinYourMemories({ navigateToWall }) {
             <h2>Leave a Note</h2>
           </div>
 
+          {savedIdentity && identityLocked ? (
+            <div className="identity-card">
+              <span>Posting as: {savedIdentity.senderName}</span>
+            </div>
+          ) : null}
+
           <label>
             Your Name
             <input
@@ -80,8 +128,22 @@ function PinYourMemories({ navigateToWall }) {
               name="senderName"
               onChange={updateField}
               placeholder="The brave sender"
+              readOnly={identityLocked}
               type="text"
               value={form.senderName}
+            />
+          </label>
+
+          <label>
+            Sender Email
+            <input
+              maxLength={160}
+              name="senderEmail"
+              onChange={updateField}
+              placeholder={`you${COLLEGE_EMAIL_DOMAIN}`}
+              readOnly={identityLocked}
+              type="email"
+              value={form.senderEmail}
             />
           </label>
 
@@ -124,6 +186,27 @@ function PinYourMemories({ navigateToWall }) {
       </section>
     </main>
   )
+}
+
+function isValidEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+}
+
+function readSavedIdentity() {
+  try {
+    const rawIdentity = localStorage.getItem('farewellUser')
+    if (!rawIdentity) return null
+
+    const parsedIdentity = JSON.parse(rawIdentity)
+    if (!parsedIdentity?.senderName || !parsedIdentity?.senderEmail) return null
+
+    return {
+      senderName: parsedIdentity.senderName,
+      senderEmail: parsedIdentity.senderEmail,
+    }
+  } catch {
+    return null
+  }
 }
 
 export default PinYourMemories

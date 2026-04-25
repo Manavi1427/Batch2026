@@ -29,11 +29,12 @@ export async function fetchMemories() {
   return response.documents
 }
 
-export async function createMemory({ senderName, message }) {
+export async function createMemory({ senderName, senderEmail, message }) {
   assertAppwriteConfig()
 
   const trimmedMemory = {
     senderName: senderName.trim(),
+    senderEmail: senderEmail.trim().toLowerCase(),
     message: message.trim(),
     createdAt: new Date().toISOString(),
   }
