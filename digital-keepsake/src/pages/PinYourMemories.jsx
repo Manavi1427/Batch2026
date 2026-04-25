@@ -1,58 +1,22 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ArrowRight, Heart, LoaderCircle, Pin, Send, Sparkles } from 'lucide-react'
-import { createMemory, fetchMemories } from '../services/memoryService'
+import { createMemory } from '../services/memoryService'
 
 const initialForm = {
   senderName: '',
   message: '',
 }
 
-const noteColors = ['pink', 'blue', 'purple', 'mint', 'peach', 'lemon']
-const noteRotations = ['-1.4deg', '1.1deg', '-0.7deg', '1.5deg', '-1deg', '0.8deg']
-
-function formatMemoryDate(value) {
-  if (!value) return 'Just now'
-
-  return new Intl.DateTimeFormat('en', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  }).format(new Date(value))
-}
-
-function PinYourMemories() {
+function PinYourMemories({ navigateToWall }) {
   const [form, setForm] = useState(initialForm)
-  const [memories, setMemories] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState({ type: '', message: '' })
-
-  const hasMemories = memories.length > 0
 
   const helperText = useMemo(() => {
     if (isSubmitting) return 'Finding a clean spot on the wall...'
     if (status.message) return status.message
     return 'Keep it kind enough for the wall, spicy enough for the batch.'
   }, [isSubmitting, status.message])
-
-  useEffect(() => {
-    loadMemories()
-  }, [])
-
-  async function loadMemories() {
-    try {
-      setIsLoading(true)
-      const fetchedMemories = await fetchMemories()
-      setMemories(fetchedMemories)
-      setStatus((current) => (current.type === 'error' ? { type: '', message: '' } : current))
-    } catch (error) {
-      setStatus({
-        type: 'error',
-        message: error?.message || 'Could not load the memories wall right now. Try refreshing in a bit.',
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   function updateField(event) {
     const { name, value } = event.target
@@ -70,10 +34,11 @@ function PinYourMemories() {
     try {
       setIsSubmitting(true)
       setStatus({ type: '', message: '' })
-      await createMemory(form)
+      const createdMemory = await createMemory(form)
+      sessionStorage.setItem('latest-pinned-memory', JSON.stringify(createdMemory))
       setForm(initialForm)
-      setStatus({ type: 'success', message: 'Pinned. The wall just got a little more legendary.' })
-      await loadMemories()
+      setStatus({ type: 'success', message: 'Pinned. Opening the wall now...' })
+      window.setTimeout(() => navigateToWall(), 450)
     } catch (error) {
       setStatus({
         type: 'error',
@@ -101,7 +66,7 @@ function PinYourMemories() {
         </div>
       </section>
 
-      <section className="pin-layout">
+      <section className="pin-layout pin-form-layout">
         <form className="memory-form reveal" onSubmit={handleSubmit}>
           <div className="form-heading">
             <Heart size={22} fill="currentColor" />
@@ -142,43 +107,19 @@ function PinYourMemories() {
           </p>
         </form>
 
-        <section className="memories-wall reveal" aria-live="polite">
-          <div className="wall-heading">
-            <div>
-              <span>Latest first</span>
-              <h2>Memories Wall</h2>
-            </div>
-            <button className="refresh-button" disabled={isLoading} onClick={loadMemories} type="button">
-              Refresh
-              <ArrowRight size={18} />
-            </button>
+        <section className="pin-wall-preview reveal" aria-label="Memories wall preview">
+          <div className="preview-note preview-one">
+            <Pin size={21} />
+            <p>Posted notes now live on the Farewell Wall.</p>
           </div>
-
-          {isLoading ? (
-            <div className="wall-empty loading">
-              <LoaderCircle className="spin" size={26} />
-              Loading pinned memories...
-            </div>
-          ) : hasMemories ? (
-            <div className="memory-note-grid">
-              {memories.map((memory, index) => (
-                <article
-                  className={`memory-note ${noteColors[index % noteColors.length]}`}
-                  key={memory.$id}
-                  style={{ '--note-rotation': noteRotations[index % noteRotations.length], '--delay': `${index * 55}ms` }}
-                >
-                  <span className="note-pin" />
-                  <p>{memory.message}</p>
-                  <div className="note-meta">
-                    <strong>from {memory.senderName}</strong>
-                    <time dateTime={memory.createdAt}>{formatMemoryDate(memory.createdAt)}</time>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="wall-empty">No memories pinned yet. Be the first menace.</div>
-          )}
+          <div className="preview-note preview-two">
+            <Sparkles size={21} />
+            <p>Your note joins the batch board right after pinning.</p>
+          </div>
+          <a className="wall-write-link" href="/wall" onClick={(event) => navigateToWall(event)}>
+            Open Wall
+            <ArrowRight size={18} />
+          </a>
         </section>
       </section>
     </main>

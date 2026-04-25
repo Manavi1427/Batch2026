@@ -18,6 +18,7 @@ import {
   X,
   Zap,
 } from 'lucide-react'
+import MemoriesWall from './pages/MemoriesWall'
 import PinYourMemories from './pages/PinYourMemories'
 import './App.css'
 
@@ -37,7 +38,7 @@ const homeMemories = [
   {
     icon: Camera,
     title: 'Memory Vault',
-    text: 'Photos, notes, class moments, and the tiny in-between stories that made PSCS 2024 feel like home.',
+    text: 'Photos, notes, class moments, and the tiny in-between stories that made PSCS 2026 feel like home.',
   },
   {
     icon: BookOpen,
@@ -46,7 +47,7 @@ const homeMemories = [
   },
   {
     icon: GraduationCap,
-    title: 'Forever 2024',
+    title: 'Forever 2026',
     text: 'A keepsake for the batch, built to revisit whenever nostalgia decides to tap on the shoulder.',
   },
 ]
@@ -87,7 +88,7 @@ const yearbookIcons = [Star, Camera, Trophy, Sparkles, Moon, Clock3, Zap, Heart]
 const yearbookColors = ['cyan', 'pink', 'purple']
 const yearbookStudents = studentNames.map((name, index) => ({
   name,
-  label: `Batch 2024 - Roll ${String(index + 1).padStart(2, '0')}`,
+  label: `Batch 2026 - Roll ${String(index + 1).padStart(2, '0')}`,
   image: pageImages.yearbook.student(index + 1),
   alt: `Portrait of ${name}`,
   icon: yearbookIcons[index % yearbookIcons.length],
@@ -134,6 +135,10 @@ function App() {
       return 'pin-your-memories'
     }
 
+    if (window.location.pathname.startsWith('/wall') || window.location.hash === '#/wall') {
+      return 'wall'
+    }
+
     return window.location.hash === '#/yearbook' ? 'yearbook' : 'home'
   }
   const [darkMode, setDarkMode] = useState(() => {
@@ -150,7 +155,11 @@ function App() {
   }, [darkMode])
 
   useEffect(() => {
-    if (!window.location.hash && !window.location.pathname.startsWith('/pin-your-memories')) {
+    if (
+      !window.location.hash &&
+      !window.location.pathname.startsWith('/pin-your-memories') &&
+      !window.location.pathname.startsWith('/wall')
+    ) {
       window.history.replaceState(null, '', '/#/')
     }
 
@@ -195,8 +204,8 @@ function App() {
 
     if (item === 'Wall') {
       event.preventDefault()
-      window.history.pushState(null, '', '/pin-your-memories')
-      setRoute('pin-your-memories')
+      window.history.pushState(null, '', '/wall')
+      setRoute('wall')
       setMenuOpen(false)
       window.scrollTo({ top: 0, behavior: 'smooth' })
       return
@@ -230,6 +239,14 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const navigateToWall = (event) => {
+    event?.preventDefault()
+    window.history.pushState(null, '', '/wall')
+    setRoute('wall')
+    setMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const navigateToHomeSection = (event, sectionId) => {
     event.preventDefault()
     window.history.pushState(null, '', `/#${sectionId}`)
@@ -251,12 +268,12 @@ function App() {
           {navItems.map((item) => (
             <a
               className={
-                (item === 'Yearbook' && route === 'yearbook') || (item === 'Wall' && route === 'pin-your-memories')
+                (item === 'Yearbook' && route === 'yearbook') || (item === 'Wall' && route === 'wall')
                   ? 'active'
                   : ''
               }
               key={item}
-              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/pin-your-memories' : `#${item.toLowerCase()}`}
+              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/wall' : `#${item.toLowerCase()}`}
               onClick={(event) => handleSectionNav(event, item)}
             >
               {item}
@@ -298,7 +315,7 @@ function App() {
           {navItems.map((item) => (
             <a
               key={item}
-              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/pin-your-memories' : `#${item.toLowerCase()}`}
+              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/wall' : `#${item.toLowerCase()}`}
               onClick={(event) => {
                 setMenuOpen(false)
                 handleSectionNav(event, item)
@@ -313,7 +330,9 @@ function App() {
       {route === 'yearbook' ? (
         <YearbookPage />
       ) : route === 'pin-your-memories' ? (
-        <PinYourMemories />
+        <PinYourMemories navigateToWall={navigateToWall} />
+      ) : route === 'wall' ? (
+        <MemoriesWall navigateToPinMemories={navigateToPinMemories} />
       ) : (
         <HomePage navigateToPinMemories={navigateToPinMemories} />
       )}

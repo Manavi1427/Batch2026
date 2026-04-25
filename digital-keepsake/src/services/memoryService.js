@@ -1,4 +1,4 @@
-import { databases, ID, isAppwriteConfigured, Query } from '../lib/appwrite'
+import { databases, ID, isAppwriteConfigured, Permission, Query, Role } from '../lib/appwrite'
 
 const databaseId = import.meta.env.VITE_APPWRITE_DATABASE_ID
 const collectionId = import.meta.env.VITE_APPWRITE_MEMORIES_COLLECTION_ID
@@ -12,10 +12,19 @@ function assertAppwriteConfig() {
 export async function fetchMemories() {
   assertAppwriteConfig()
 
-  const response = await databases.listDocuments(databaseId, collectionId, [
-    Query.orderDesc('createdAt'),
-    Query.limit(100),
-  ])
+  let response
+
+  try {
+    response = await databases.listDocuments(databaseId, collectionId, [Query.orderDesc('createdAt'), Query.limit(100)])
+  } catch (error) {
+    const message = String(error?.message || '')
+
+    if (!message.includes('createdAt')) {
+      throw error
+    }
+
+    response = await databases.listDocuments(databaseId, collectionId, [Query.orderDesc('$createdAt'), Query.limit(100)])
+  }
 
   return response.documents
 }
@@ -29,5 +38,5 @@ export async function createMemory({ senderName, message }) {
     createdAt: new Date().toISOString(),
   }
 
-  return databases.createDocument(databaseId, collectionId, ID.unique(), trimmedMemory)
+  return databases.createDocument(databaseId, collectionId, ID.unique(), trimmedMemory, [Permission.read(Role.any())])
 }
