@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  ArrowLeft,
   ArrowRight,
   BookOpen,
   Camera,
@@ -19,6 +18,7 @@ import {
   X,
   Zap,
 } from 'lucide-react'
+import PinYourMemories from './pages/PinYourMemories'
 import './App.css'
 
 const navItems = ['Memories', 'Yearbook', 'Messages', 'Wall', 'Gallery']
@@ -29,10 +29,7 @@ const pageImages = {
     featuredCelebration: '/images/home/featured-celebration.jpg',
   },
   yearbook: {
-    marcusLee: '/images/yearbook/marcus-lee.jpg',
-    elenaVance: '/images/yearbook/elena-vance.jpg',
-    chloeDubois: '/images/yearbook/chloe-dubois.jpg',
-    davidChen: '/images/yearbook/david-chen.jpg',
+    student: (number) => `/images/yearbook/student-${String(number).padStart(2, '0')}.jpg`,
   },
 }
 
@@ -54,48 +51,48 @@ const homeMemories = [
   },
 ]
 
-const superlatives = [
-  {
-    name: 'Marcus "Snooze" Lee',
-    award: 'Most Likely to Sleep Through a Final',
-    quote: "I don't fail exams, I just dream about the answers from home.",
-    image: pageImages.yearbook.marcusLee,
-    alt: 'Portrait of a young man with a sleepy expression',
-    icon: Moon,
-    color: 'cyan',
-    rotate: '-1.2deg',
-  },
-  {
-    name: 'Elena Vance',
-    award: 'The Professional Procrastinator',
-    quote: 'Diamonds are made under pressure, and so are my 2,000-word essays.',
-    image: pageImages.yearbook.elenaVance,
-    alt: 'Young woman with glasses looking at a laptop',
-    icon: Clock3,
-    color: 'pink',
-    rotate: '1.5deg',
-  },
-  {
-    name: 'Chloe Dubois',
-    award: 'Main Character Energy',
-    quote: "I'm not dramatic, I just live in a high-budget indie film.",
-    image: pageImages.yearbook.chloeDubois,
-    alt: 'Stylish young woman walking confidently',
-    icon: Zap,
-    color: 'purple',
-    rotate: '-0.8deg',
-  },
-  {
-    name: 'David Chen',
-    award: 'Most Likely to be CEO',
-    quote: "I've already scheduled my mid-life crisis for next Tuesday at 3 PM.",
-    image: pageImages.yearbook.davidChen,
-    alt: 'Young man smiling confidently',
-    icon: Trophy,
-    color: 'cyan',
-    rotate: '1.2deg',
-  },
+const studentNames = [
+  'Student 01',
+  'Student 02',
+  'Student 03',
+  'Student 04',
+  'Student 05',
+  'Student 06',
+  'Student 07',
+  'Student 08',
+  'Student 09',
+  'Student 10',
+  'Student 11',
+  'Student 12',
+  'Student 13',
+  'Student 14',
+  'Student 15',
+  'Student 16',
+  'Student 17',
+  'Student 18',
+  'Student 19',
+  'Student 20',
+  'Student 21',
+  'Student 22',
+  'Student 23',
+  'Student 24',
+  'Student 25',
+  'Student 26',
+  'Student 27',
+  'Student 28',
+  'Student 29',
+  'Student 30',
 ]
+const yearbookIcons = [Star, Camera, Trophy, Sparkles, Moon, Clock3, Zap, Heart]
+const yearbookColors = ['cyan', 'pink', 'purple']
+const yearbookStudents = studentNames.map((name, index) => ({
+  name,
+  label: `Batch 2024 - Roll ${String(index + 1).padStart(2, '0')}`,
+  image: pageImages.yearbook.student(index + 1),
+  alt: `Portrait of ${name}`,
+  icon: yearbookIcons[index % yearbookIcons.length],
+  color: yearbookColors[index % yearbookColors.length],
+}))
 
 const featureCards = [
   {
@@ -132,7 +129,13 @@ function ImageWithFallback({ src, alt }) {
 }
 
 function App() {
-  const getRoute = () => (window.location.hash === '#/yearbook' ? 'yearbook' : 'home')
+  const getRoute = () => {
+    if (window.location.pathname.startsWith('/pin-your-memories') || window.location.hash === '#/pin-your-memories') {
+      return 'pin-your-memories'
+    }
+
+    return window.location.hash === '#/yearbook' ? 'yearbook' : 'home'
+  }
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('keepsake-theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -140,7 +143,6 @@ function App() {
   })
   const [menuOpen, setMenuOpen] = useState(false)
   const [route, setRoute] = useState(getRoute)
-  const carouselRef = useRef(null)
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode)
@@ -148,16 +150,22 @@ function App() {
   }, [darkMode])
 
   useEffect(() => {
-    if (!window.location.hash) window.history.replaceState(null, '', '#/')
+    if (!window.location.hash && !window.location.pathname.startsWith('/pin-your-memories')) {
+      window.history.replaceState(null, '', '/#/')
+    }
 
-    const handleHashChange = () => {
+    const handleRouteChange = () => {
       setRoute(getRoute())
       setMenuOpen(false)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
+    window.addEventListener('hashchange', handleRouteChange)
+    window.addEventListener('popstate', handleRouteChange)
+    return () => {
+      window.removeEventListener('hashchange', handleRouteChange)
+      window.removeEventListener('popstate', handleRouteChange)
+    }
   }, [])
 
   useEffect(() => {
@@ -176,12 +184,28 @@ function App() {
   }, [route])
 
   const handleSectionNav = (event, item) => {
-    if (item === 'Yearbook') return
+    if (item === 'Yearbook') {
+      event.preventDefault()
+      window.history.pushState(null, '', '/#/yearbook')
+      setRoute('yearbook')
+      setMenuOpen(false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    if (item === 'Wall') {
+      event.preventDefault()
+      window.history.pushState(null, '', '/pin-your-memories')
+      setRoute('pin-your-memories')
+      setMenuOpen(false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
 
     if (route !== 'home') {
       event.preventDefault()
       const sectionId = item.toLowerCase()
-      window.history.pushState(null, '', '#/')
+      window.history.pushState(null, '', `/#${sectionId}`)
       setRoute('home')
       setMenuOpen(false)
       window.setTimeout(() => {
@@ -190,30 +214,49 @@ function App() {
     }
   }
 
-  const scrollCarousel = (direction) => {
-    const track = carouselRef.current
-    if (!track) return
+  const navigateHome = (event) => {
+    event.preventDefault()
+    window.history.pushState(null, '', '/')
+    setRoute('home')
+    setMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
-    const cardWidth = track.querySelector('.yearbook-card-shell')?.clientWidth ?? 360
-    track.scrollBy({
-      left: direction * (cardWidth + 32),
-      behavior: 'smooth',
-    })
+  const navigateToPinMemories = (event) => {
+    event.preventDefault()
+    window.history.pushState(null, '', '/pin-your-memories')
+    setRoute('pin-your-memories')
+    setMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const navigateToHomeSection = (event, sectionId) => {
+    event.preventDefault()
+    window.history.pushState(null, '', `/#${sectionId}`)
+    setRoute('home')
+    setMenuOpen(false)
+    window.setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 80)
   }
 
   return (
     <div className="app-shell">
       <header className="topbar">
-        <a className="brand" href="#/" aria-label="The Digital Keepsake home">
+        <a className="brand" href="/" onClick={navigateHome} aria-label="The Digital Keepsake home">
           The Digital Keepsake
         </a>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navItems.map((item) => (
             <a
-              className={item === 'Yearbook' && route === 'yearbook' ? 'active' : ''}
+              className={
+                (item === 'Yearbook' && route === 'yearbook') || (item === 'Wall' && route === 'pin-your-memories')
+                  ? 'active'
+                  : ''
+              }
               key={item}
-              href={item === 'Yearbook' ? '#/yearbook' : `#${item.toLowerCase()}`}
+              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/pin-your-memories' : `#${item.toLowerCase()}`}
               onClick={(event) => handleSectionNav(event, item)}
             >
               {item}
@@ -236,7 +279,7 @@ function App() {
           <button className="icon-button hide-small" type="button" aria-label="Favorite memories">
             <Heart size={20} fill="currentColor" />
           </button>
-          <a className="add-button" href={route === 'home' ? '#messages' : '#/'}>
+          <a className="add-button" href="/pin-your-memories" onClick={navigateToPinMemories}>
             Add Moment
           </a>
           <button
@@ -255,7 +298,7 @@ function App() {
           {navItems.map((item) => (
             <a
               key={item}
-              href={item === 'Yearbook' ? '#/yearbook' : `#${item.toLowerCase()}`}
+              href={item === 'Yearbook' ? '/#/yearbook' : item === 'Wall' ? '/pin-your-memories' : `#${item.toLowerCase()}`}
               onClick={(event) => {
                 setMenuOpen(false)
                 handleSectionNav(event, item)
@@ -267,15 +310,29 @@ function App() {
         </nav>
       )}
 
-      {route === 'yearbook' ? <YearbookPage carouselRef={carouselRef} scrollCarousel={scrollCarousel} /> : <HomePage />}
+      {route === 'yearbook' ? (
+        <YearbookPage />
+      ) : route === 'pin-your-memories' ? (
+        <PinYourMemories />
+      ) : (
+        <HomePage navigateToPinMemories={navigateToPinMemories} />
+      )}
 
       <footer id="gallery">
         <strong>The Digital Keepsake</strong>
         <div className="footer-links">
-          <a href="#memories">The Vault</a>
-          <a href="#/yearbook">Alumni Directory</a>
-          <a href="#messages">Lost &amp; Found</a>
-          <a href="#top">Farewell Letter</a>
+          <a href="/#memories" onClick={(event) => navigateToHomeSection(event, 'memories')}>
+            The Vault
+          </a>
+          <a href="/#/yearbook" onClick={(event) => handleSectionNav(event, 'Yearbook')}>
+            Alumni Directory
+          </a>
+          <a href="/pin-your-memories" onClick={navigateToPinMemories}>
+            Lost &amp; Found
+          </a>
+          <a href="/#top" onClick={(event) => navigateToHomeSection(event, 'top')}>
+            Farewell Letter
+          </a>
         </div>
         <div className="footer-rule" />
         <p>© 2024 Class of 2024. Hand-penned with love and nostalgia.</p>
@@ -284,7 +341,7 @@ function App() {
   )
 }
 
-function HomePage() {
+function HomePage({ navigateToPinMemories }) {
   return (
     <main id="top" className="home-page">
       <section className="home-hero reveal">
@@ -339,7 +396,9 @@ function HomePage() {
 
       <section className="home-message-band reveal" id="messages">
         <h2>Leave a note for the batch wall.</h2>
-        <a href="#wall">Pin a Memory</a>
+        <a href="/pin-your-memories" onClick={navigateToPinMemories}>
+          Pin a Memory
+        </a>
       </section>
 
       <section className="home-wall" id="wall">
@@ -352,7 +411,7 @@ function HomePage() {
   )
 }
 
-function YearbookPage({ carouselRef, scrollCarousel }) {
+function YearbookPage() {
   return (
     <main id="top" className="yearbook-page">
       <section className="yearbook-hero reveal" id="yearbook">
@@ -366,36 +425,26 @@ function YearbookPage({ carouselRef, scrollCarousel }) {
         <p>Celebrating the unique quirks and legendary personalities that made this year unforgettable.</p>
       </section>
 
-      <section className="carousel-section" aria-label="Yearbook superlatives">
-        <div className="carousel-controls reveal">
-          <button type="button" onClick={() => scrollCarousel(-1)} aria-label="Previous superlative">
-            <ArrowLeft size={22} />
-          </button>
-          <button type="button" onClick={() => scrollCarousel(1)} aria-label="Next superlative">
-            <ArrowRight size={22} />
-          </button>
-        </div>
-
-        <div className="yearbook-track" ref={carouselRef}>
-          {superlatives.map(({ name, award, quote, image, alt, icon, color, rotate }, index) => {
+      <section className="yearbook-section" aria-label="Yearbook student photos">
+        <div className="yearbook-grid">
+          {yearbookStudents.map(({ name, label, image, alt, icon, color }, index) => {
             const AwardIcon = icon
 
             return (
               <article
                 className="yearbook-card-shell reveal"
                 key={name}
-                style={{ '--rotate': rotate, '--delay': `${index * 90}ms` }}
+                style={{ '--delay': `${Math.min(index, 11) * 45}ms` }}
               >
                 <div className="yearbook-card">
                   <div className={`award-badge ${color}`}>
-                    <AwardIcon size={30} />
+                    <AwardIcon size={22} />
                   </div>
                   <div className="portrait">
                     <ImageWithFallback src={image} alt={alt} />
                   </div>
                   <h2>{name}</h2>
-                  <strong>{award}</strong>
-                  <p>"{quote}"</p>
+                  <strong>{label}</strong>
                 </div>
               </article>
             )

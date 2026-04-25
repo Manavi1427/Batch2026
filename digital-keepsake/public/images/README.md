@@ -13,9 +13,8 @@ Current expected filenames:
 
 - `home/featured-study.jpg`
 - `home/featured-celebration.jpg`
-- `yearbook/marcus-lee.jpg`
-- `yearbook/elena-vance.jpg`
-- `yearbook/chloe-dubois.jpg`
-- `yearbook/david-chen.jpg`
+- `yearbook/student-01.jpg`
+- `yearbook/student-02.jpg`
+- Continue the same pattern through `yearbook/student-30.jpg`
 
 If any image is missing, the app automatically displays `shared/image-placeholder.svg`.
