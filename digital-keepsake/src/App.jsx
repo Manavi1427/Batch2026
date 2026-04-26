@@ -3,7 +3,6 @@ import {
   ArrowRight,
   BookOpen,
   Camera,
-  Clock3,
   GraduationCap,
   Heart,
   History,
@@ -13,10 +12,7 @@ import {
   Sparkles,
   Star,
   Sun,
-  Trophy,
-  UsersRound,
   X,
-  Zap,
 } from 'lucide-react'
 import Gallery from './pages/Gallery'
 import MemoriesWall from './pages/MemoriesWall'
@@ -55,28 +51,28 @@ const homeMemories = [
 ]
 
 const studentNames = [
-  'Student 01',
-  'Student 02',
-  'Student 03',
-  'Student 04',
-  'Student 05',
-  'Student 06',
-  'Student 07',
-  'Student 08',
-  'Student 09',
-  'Student 10',
-  'Student 11',
-  'Student 12',
-  'Student 13',
-  'Student 14',
-  'Student 15',
-  'Student 16',
-  'Student 17',
-  'Student 18',
-  'Student 19',
-  'Student 20',
-  'Student 21',
-  'Student 22',
+  'Khushi Singh',
+  'Vineet',
+  'Yash Bhushan',
+  'Midhuna Unnikrishnan',
+  'Shyam',
+  'Khushi Chaudhary',
+  'Rahul Kumar',
+  'Ravi Kumar',
+  'Harsh',
+  'Aryan Sharma',
+  'Aditya Kumar',
+  'Adarsh',
+  'Rachna Lamba',
+  'Aditya negi',
+  'Mukul',
+  'Lalit Sain',
+  'Kirti Rathee',
+  'Kanak Yadav',
+  'Sukriti Singh',
+  'Vishal Prasad',
+  'Sumit',
+  'Aditya',
   'Student 23',
   'Student 24',
   'Student 25',
@@ -86,15 +82,43 @@ const studentNames = [
   'Student 29',
   'Student 30',
 ]
-const yearbookIcons = [Star, Camera, Trophy, Sparkles, Moon, Clock3, Zap, Heart]
-const yearbookColors = ['cyan', 'pink', 'purple']
+const yearbookQuotes = [
+  'Gentle heart, determined mind.',
+  'Every problem has a solution; I just found mine.',
+  'When death finds you, may it find you alive.',
+  'Had many ups and downs in this journey, but I wouldn’t trade it for anything—the people, lessons, and memories made it all worthwhile.',
+  'China town chl lo',
+  'Build yourself but dont forget to enjoy, having fun and make lots of memories.',
+  '.....and in between freshers and farewell, life happened.',
+  'Bhai mere ko game me rahna hai😅',
+  'Four years, too many screenshots, zero regrets.',
+  'Always keep pushing your limits',
+  'I finally got out. See you never, 9 AM classes',
+  'We came, we saw, we procrastinated.',
+  'Started with confusion, leaving with confidence (and screenshots of notes).',
+  'In every walk with nature one receives far more than he seeks',
+  'Agle sem pakka',
+  'No thoughts, just vibes and somehow a degree—held together by Google, YouTube, and last-night miracles. This wasn’t just college… it was character development.',
+  '😎 Elegance With Side Of Ambition✨.',
+  'You can get what you want, or you can just get old.',
+  'Prioritize yourself and be happy',
+  'Each of us is unique - don’t waste your energy on comparison. Use it to grow, and become your best self.',
+  'Dilli k raaje',
+  'Dear future, be gentle. We are dramatic.',
+  'Every farewell needs one last laugh.',
+  'My favorite subject was everyone here.',
+  'We made memories between all the deadlines.',
+  'No retakes for this kind of time.',
+  'Leaving campus, carrying the whole batch.',
+  'The photos changed, the feeling stayed.',
+  'Certified by attendance shortage and emotional damage.',
+  'Same stories, better lighting, forever us.',
+]
 const yearbookStudents = studentNames.map((name, index) => ({
   name,
-  label: `Batch 2026 - Roll ${String(index + 1).padStart(2, '0')}`,
+  quote: yearbookQuotes[index],
   image: pageImages.yearbook.student(index + 1),
   alt: `Portrait of ${name}`,
-  icon: yearbookIcons[index % yearbookIcons.length],
-  color: yearbookColors[index % yearbookColors.length],
 }))
 
 const featureCards = [
@@ -330,12 +354,6 @@ function App() {
           >
             <span>{darkMode ? <Moon size={16} /> : <Sun size={16} />}</span>
           </button>
-          <button className="icon-button hide-small" type="button" aria-label="Featured moments">
-            <Sparkles size={20} />
-          </button>
-          <button className="icon-button hide-small" type="button" aria-label="Favorite memories">
-            <Heart size={20} fill="currentColor" />
-          </button>
           <a className="add-button" href="/add-moment" onClick={navigateToAddMoment}>
             Add Moment
           </a>
@@ -501,28 +519,21 @@ function YearbookPage() {
 
       <section className="yearbook-section" aria-label="Yearbook student photos">
         <div className="yearbook-grid">
-          {yearbookStudents.map(({ name, label, image, alt, icon, color }, index) => {
-            const AwardIcon = icon
-
-            return (
-              <article
-                className="yearbook-card-shell reveal"
-                key={name}
-                style={{ '--delay': `${Math.min(index, 11) * 45}ms` }}
-              >
-                <div className="yearbook-card">
-                  <div className={`award-badge ${color}`}>
-                    <AwardIcon size={22} />
-                  </div>
-                  <div className="portrait">
-                    <ImageWithFallback src={image} alt={alt} />
-                  </div>
-                  <h2>{name}</h2>
-                  <strong>{label}</strong>
+          {yearbookStudents.map(({ name, quote, image, alt }, index) => (
+            <article
+              className="yearbook-card-shell reveal"
+              key={name}
+              style={{ '--delay': `${Math.min(index, 11) * 45}ms` }}
+            >
+              <div className="yearbook-card">
+                <div className="portrait">
+                  <ImageWithFallback src={image} alt={alt} />
                 </div>
-              </article>
-            )
-          })}
+                <h2>{name}</h2>
+                <p>{quote}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

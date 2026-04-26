@@ -563,16 +563,18 @@ a {
 
 .yearbook-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 26px);
   align-items: stretch;
 }
 
 .yearbook-card {
   position: relative;
   min-height: 100%;
-  padding: 16px;
-  border-radius: 24px;
+  padding: 14px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
   background: var(--surface-container-lowest);
   box-shadow: 0 16px 42px rgba(45, 47, 47, 0.08);
   transition:
@@ -591,38 +593,10 @@ a {
   transform: translateY(-8px);
 }
 
-.award-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  box-shadow: 0 18px 34px rgba(45, 47, 47, 0.12);
-}
-
-.award-badge.cyan {
-  color: #1f5467;
-  background: #b2e4fb;
-}
-
-.award-badge.pink {
-  color: #623648;
-  background: #f8bbd0;
-}
-
-.award-badge.purple {
-  color: #604567;
-  background: #f5d1fb;
-}
-
 .portrait {
   margin-bottom: 16px;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   background: #e7e8e8;
   aspect-ratio: 4 / 5;
 }
@@ -644,10 +618,10 @@ a {
 }
 
 .yearbook-card h2 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: var(--on-surface);
   font-family: var(--headline);
-  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.24rem);
   line-height: 1.1;
 }
 
@@ -657,15 +631,12 @@ a {
   color: #f1f5f9;
 }
 
-.yearbook-card strong {
-  display: block;
-  color: #7d4d5f;
-  font-family: var(--headline);
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1.5;
-  text-transform: uppercase;
+.yearbook-card p {
+  margin: 0;
+  color: var(--on-surface-variant);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .feature-grid {
@@ -2040,6 +2011,10 @@ footer p {
     min-height: auto;
   }
 
+  .yearbook-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .pin-hero,
   .pin-layout,
   .gallery-layout,
@@ -2135,11 +2110,6 @@ footer p {
     margin-bottom: 32px;
   }
 
-  .yearbook-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-  }
-
   .pin-page {
     padding-inline: 20px;
   }
@@ -2232,13 +2202,14 @@ footer p {
     border-radius: 20px;
   }
 
-  .award-badge {
-    width: 36px;
-    height: 36px;
-  }
-
   .portrait {
     border-radius: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .yearbook-grid {
+    grid-template-columns: 1fr;
   }
 }
 
