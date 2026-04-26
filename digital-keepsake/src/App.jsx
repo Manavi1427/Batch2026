@@ -21,6 +21,7 @@ import {
 import Gallery from './pages/Gallery'
 import MemoriesWall from './pages/MemoriesWall'
 import PinYourMemories from './pages/PinYourMemories'
+import UploadMoment from './pages/UploadMoment'
 import './App.css'
 
 const navItems = ['Memories', 'Yearbook', 'Messages', 'Wall', 'Gallery']
@@ -130,6 +131,10 @@ function App() {
       return 'pin-your-memories'
     }
 
+    if (window.location.pathname.startsWith('/add-moment') || window.location.hash === '#/add-moment') {
+      return 'add-moment'
+    }
+
     if (window.location.pathname.startsWith('/wall') || window.location.hash === '#/wall') {
       return 'wall'
     }
@@ -157,6 +162,7 @@ function App() {
     if (
       !window.location.hash &&
       !window.location.pathname.startsWith('/pin-your-memories') &&
+      !window.location.pathname.startsWith('/add-moment') &&
       !window.location.pathname.startsWith('/wall') &&
       !window.location.pathname.startsWith('/gallery')
     ) {
@@ -248,6 +254,14 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const navigateToAddMoment = (event) => {
+    event?.preventDefault()
+    window.history.pushState(null, '', '/add-moment')
+    setRoute('add-moment')
+    setMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const navigateToWall = (event) => {
     event?.preventDefault()
     window.history.pushState(null, '', '/wall')
@@ -322,7 +336,7 @@ function App() {
           <button className="icon-button hide-small" type="button" aria-label="Favorite memories">
             <Heart size={20} fill="currentColor" />
           </button>
-          <a className="add-button" href="/pin-your-memories" onClick={navigateToPinMemories}>
+          <a className="add-button" href="/add-moment" onClick={navigateToAddMoment}>
             Add Moment
           </a>
           <button
@@ -358,6 +372,9 @@ function App() {
               {item}
             </a>
           ))}
+          <a href="/add-moment" onClick={navigateToAddMoment}>
+            Add Moment
+          </a>
         </nav>
       )}
 
@@ -365,10 +382,12 @@ function App() {
         <YearbookPage />
       ) : route === 'pin-your-memories' ? (
         <PinYourMemories navigateToWall={navigateToWall} />
+      ) : route === 'add-moment' ? (
+        <UploadMoment navigateToGallery={navigateToGallery} />
       ) : route === 'wall' ? (
         <MemoriesWall navigateToPinMemories={navigateToPinMemories} />
       ) : route === 'gallery' ? (
-        <Gallery />
+        <Gallery navigateToAddMoment={navigateToAddMoment} />
       ) : (
         <HomePage navigateToGallery={navigateToGallery} navigateToPinMemories={navigateToPinMemories} />
       )}

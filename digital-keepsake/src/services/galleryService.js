@@ -19,8 +19,15 @@ export async function uploadImage(file) {
     uploadedFile = await storage.createFile(bucketId, ID.unique(), file, [Permission.read(Role.any())])
   } catch (error) {
     const message = String(error?.message || '')
+    const normalizedMessage = message.toLowerCase()
 
-    if (message.toLowerCase().includes('bucket') && message.toLowerCase().includes('not be found')) {
+    if (isMissingCreatePermission(message)) {
+      throw new Error(
+        'Photo upload is blocked by Appwrite permissions. In your gallery storage bucket, add Create access for the role that should upload photos, such as Any or Users.',
+      )
+    }
+
+    if (normalizedMessage.includes('bucket') && normalizedMessage.includes('not be found')) {
       throw new Error(
         `Gallery storage bucket was not found. Set VITE_APPWRITE_GALLERY_BUCKET_ID to your Appwrite bucket ID, not just the bucket name. Currently using "${bucketId}".`,
       )
@@ -48,7 +55,17 @@ export async function createGalleryEntry({ senderName, senderEmail, imageUrl, no
     createdAt: new Date().toISOString(),
   }
 
-  return databases.createDocument(databaseId, collectionId, ID.unique(), entry, [Permission.read(Role.any())])
+  try {
+    return await databases.createDocument(databaseId, collectionId, ID.unique(), entry, [Permission.read(Role.any())])
+  } catch (error) {
+    if (isMissingCreatePermission(error?.message)) {
+      throw new Error(
+        'Photo details are blocked by Appwrite permissions. In your gallery collection, add Create access for the role that should add photos, such as Any or Users.',
+      )
+    }
+
+    throw error
+  }
 }
 
 export async function fetchGalleryImages() {
@@ -69,4 +86,10 @@ export async function fetchGalleryImages() {
   }
 
   return response.documents
+}
+
+function isMissingCreatePermission(message) {
+  return String(message || '')
+    .toLowerCase()
+    .includes("no permissions provided for action 'create'")
 }

@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Camera, LoaderCircle, RefreshCw, Sparkles } from 'lucide-react'
+import { Camera, ImagePlus, LoaderCircle, RefreshCw, Sparkles } from 'lucide-react'
 import PhotoCard from '../components/PhotoCard'
-import UploadPhoto from '../components/UploadPhoto'
 import { fetchGalleryImages } from '../services/galleryService'
 
-function Gallery() {
+function Gallery({ navigateToAddMoment }) {
   const [photos, setPhotos] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
@@ -25,10 +24,6 @@ function Gallery() {
     }
   }
 
-  function handlePhotoAdded(photo) {
-    setPhotos((currentPhotos) => [photo, ...currentPhotos.filter((currentPhoto) => currentPhoto.$id !== photo.$id)])
-  }
-
   return (
     <main id="top" className="gallery-page">
       <section className="gallery-hero reveal">
@@ -39,22 +34,26 @@ function Gallery() {
         <h1>
           Batch <span>Gallery</span>
         </h1>
-        <p>Upload the photos that deserve a permanent spot in the scrapbook, from blurry chaos to graduation glow-ups.</p>
+        <p>Browse the uploaded photo moments that deserve a permanent spot in the scrapbook, from blurry chaos to graduation glow-ups.</p>
       </section>
 
-      <section className="gallery-layout">
-        <UploadPhoto onPhotoAdded={handlePhotoAdded} />
-
+      <section className="gallery-layout gallery-only-layout">
         <section className="gallery-board reveal" aria-live="polite">
           <div className="gallery-board-heading">
             <div>
               <span>Latest first</span>
               <h2>Photo Collage</h2>
             </div>
-            <button className="refresh-button" disabled={isLoading} onClick={loadPhotos} type="button">
-              {isLoading ? <LoaderCircle className="spin" size={18} /> : <RefreshCw size={18} />}
-              Refresh
-            </button>
+            <div className="gallery-board-actions">
+              <a className="wall-write-link" href="/add-moment" onClick={navigateToAddMoment}>
+                <ImagePlus size={18} />
+                Add Moment
+              </a>
+              <button className="refresh-button" disabled={isLoading} onClick={loadPhotos} type="button">
+                {isLoading ? <LoaderCircle className="spin" size={18} /> : <RefreshCw size={18} />}
+                Refresh
+              </button>
+            </div>
           </div>
 
           {isLoading ? (
