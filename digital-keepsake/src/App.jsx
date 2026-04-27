@@ -72,10 +72,10 @@ const studentNames = [
   'Sukriti Singh',
   'Vishal Prasad',
   'Sumit',
+  'Neha',
+  'Gaurav Yadav',
+  'Anjali Archana',
   'Aditya',
-  'Student 23',
-  'Student 24',
-  'Student 25',
   'Student 26',
   'Student 27',
   'Student 28',
@@ -104,9 +104,9 @@ const yearbookQuotes = [
   'Prioritize yourself and be happy',
   'Each of us is unique - don’t waste your energy on comparison. Use it to grow, and become your best self.',
   'Dilli k raaje',
-  'Dear future, be gentle. We are dramatic.',
-  'Every farewell needs one last laugh.',
-  'My favorite subject was everyone here.',
+  'Tum Tum Ho, Hum Hum Hain.Na Tum Kam Ho, Na Hum Kam Hain.',
+  'Best memories planned nahi hoti, bas ho jaati hain.Kuch best saal, kuch best log, aur bohot saari yaadein❤️—Gaurav, signing off with memories that stay✨.',
+  'Signing out… but the memories stay logged in.',
   'We made memories between all the deadlines.',
   'No retakes for this kind of time.',
   'Leaving campus, carrying the whole batch.',
@@ -124,7 +124,7 @@ const yearbookStudents = studentNames.map((name, index) => ({
 const featureCards = [
   {
     title: 'The Hand-Penned Vault',
-    text: 'Every award is nominated and voted by the class of 2024. These are the legends that defined our four years.',
+    text: 'Every award is nominated and voted by the class of 2026. These are the legends that defined our four years.',
     icon: History,
     tone: 'neutral',
   },
@@ -427,7 +427,7 @@ function App() {
           </a>
         </div>
         <div className="footer-rule" />
-        <p>© 2024 Class of 2026. Hand-penned with love and nostalgia.</p>
+        <p>© 2026 Class of 2026. Hand-penned with love and nostalgia.</p>
       </footer>
     </div>
   )
