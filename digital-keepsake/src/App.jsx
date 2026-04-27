@@ -74,13 +74,7 @@ const studentNames = [
   'Sumit',
   'Neha',
   'Gaurav Yadav',
-  'Anjali Archana',
-  'Aditya',
-  'Student 26',
-  'Student 27',
-  'Student 28',
-  'Student 29',
-  'Student 30',
+  'Anjali Archana'
 ]
 const yearbookQuotes = [
   'Gentle heart, determined mind.',
@@ -106,13 +100,7 @@ const yearbookQuotes = [
   'Dilli k raaje',
   'Tum Tum Ho, Hum Hum Hain.Na Tum Kam Ho, Na Hum Kam Hain.',
   'Best memories planned nahi hoti, bas ho jaati hain.Kuch best saal, kuch best log, aur bohot saari yaadein❤️—Gaurav, signing off with memories that stay✨.',
-  'Signing out… but the memories stay logged in.',
-  'We made memories between all the deadlines.',
-  'No retakes for this kind of time.',
-  'Leaving campus, carrying the whole batch.',
-  'The photos changed, the feeling stayed.',
-  'Certified by attendance shortage and emotional damage.',
-  'Same stories, better lighting, forever us.',
+  'Signing out… but the memories stay logged in.'
 ]
 const yearbookStudents = studentNames.map((name, index) => ({
   name,
